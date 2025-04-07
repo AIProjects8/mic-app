@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Button } from '@mui/material';
 import './App.css';
 
 function App() {
@@ -87,15 +88,36 @@ function App() {
   return (
     <div className="app">
       <h1>Voice Recorder</h1>
-      <button
-        className={`record-button ${isRecording ? 'recording' : ''}`}
+      <Button
+        variant="contained"
+        color={isRecording ? "error" : "primary"}
+        sx={{
+          width: 200,
+          height: 200,
+          borderRadius: '50%',
+          fontSize: '1.5rem',
+          boxShadow: 3,
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          msUserSelect: 'none',
+          '&:hover': {
+            transform: 'scale(1.05)',
+            boxShadow: 6,
+          },
+          animation: isRecording ? 'pulse 1.5s infinite' : 'none',
+          '@keyframes pulse': {
+            '0%': { transform: 'scale(1)' },
+            '50%': { transform: 'scale(1.05)' },
+            '100%': { transform: 'scale(1)' },
+          },
+        }}
         onMouseDown={startRecording}
         onMouseUp={stopRecording}
         onTouchStart={startRecording}
         onTouchEnd={stopRecording}
       >
         {isRecording ? 'Recording...' : 'Record'}
-      </button>
+      </Button>
       <div className="transcription-box">
         <h2>Transcription:</h2>
         <p>{transcription || 'Your transcription will appear here...'}</p>
